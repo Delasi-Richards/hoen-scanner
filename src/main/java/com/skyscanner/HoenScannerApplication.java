@@ -19,13 +19,13 @@ public class HoenScannerApplication extends Application<HoenScannerConfiguration
     public void initialize(final Bootstrap<HoenScannerConfiguration> bootstrap) {
 
     }
-    
+ 
     @Override
     public void run(final HoenScannerConfiguration configuration, final Environment environment) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         List<SearchResult> carResults = Arrays.asList(
             mapper.readValue(
-                getClass().getClassLoader().getResource(name: "rental_cars.json"),
+                getClass().getClassLoader().getResource (name: "rental_cars.json"),
                 SearchResult[].class
             )
         );
@@ -38,6 +38,8 @@ public class HoenScannerApplication extends Application<HoenScannerConfiguration
         List<SearchResult> searchResults = new ArrayList<>();
         searchResults.addAll(carResults);
         searchResults.addAll(hotelResults);
+        final SearchResource resource new SearchResource(searchResults);
+        environment.jersey().register(resource);
     }
 
 }
